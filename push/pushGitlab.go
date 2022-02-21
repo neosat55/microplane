@@ -48,12 +48,15 @@ func GitlabPush(ctx context.Context, input Input, repoLimiter *time.Ticker, push
 	head := input.BranchName
 	base := project.DefaultBranch
 
+	assigneeID := 164
+
 	title, body := getTitleBody(input)
 	pr, err := findOrCreateGitlabMR(ctx, client, input.Repo.Owner, input.Repo.Name, &gitlab.CreateMergeRequestOptions{
 		Title:        &title,
 		Description:  &body,
 		SourceBranch: &head,
 		TargetBranch: &base,
+		AssigneeID:   &assigneeID,
 	}, repoLimiter, pushLimiter)
 	if err != nil {
 		return Output{Success: false}, err
