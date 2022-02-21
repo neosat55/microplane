@@ -36,5 +36,6 @@ func (r Repo) ComputedCloneURL() (string, error) {
 		}
 		hostname = parsed.Hostname()
 	}
-	return fmt.Sprintf("git@%s:%s/%s", hostname, r.Owner, r.Name), nil
+
+	return fmt.Sprintf("git@%s:%s/%s.git", hostname, r.Owner, r.Name), nil
 }
